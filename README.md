@@ -2,4 +2,6 @@
     <img src="img/incant-mascot-readme.png" alt="incantation mascot" />
 </div>
 
-### We're only just beginning. Email me if you have interest in contributing (email address in profile.)
+### - A simple git TUI to replace the others.
+
+### ❗️ We're only just beginning. Email me if you have interest in contributing (email address in profile.)
