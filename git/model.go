@@ -10,5 +10,5 @@ type Model struct {
 	Path       string // TODO: Should be set and updated by cache
 	Repository *git.Repository
 	Tree       *git.Worktree
-	Logger     logger.Logger
+	Logger     *logger.Logger
 }

@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/andyroid0/incantation/app"
+
 	"github.com/andyroid0/incantation/cache"
 	IncantConfig "github.com/andyroid0/incantation/config"
 	"github.com/andyroid0/incantation/env"

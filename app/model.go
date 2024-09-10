@@ -6,6 +6,7 @@ import (
 
 	"github.com/andyroid0/incantation/component/changes"
 	"github.com/andyroid0/incantation/component/repos"
+	"github.com/andyroid0/incantation/git"
 )
 
 type Model struct {
@@ -20,4 +21,5 @@ type Model struct {
 	viewport            *viewport.Model
 	TerminalWidth       int
 	TerminalHeight      int
+	Git                 *git.Model
 }

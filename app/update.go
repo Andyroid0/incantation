@@ -120,7 +120,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.ShowDialog = true
 		}
 		if zone.Get(constants.Zone_AddExistingRepoButton).InBounds(msg) {
-			m.ActionSetShowDialog(false)
+			m.SetShowDialog(false)
 			cmds = append(
 				cmds,
 				m.ReposModel.ActionSetPickerList(m.ReposModel.FilePickerPath),

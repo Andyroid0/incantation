@@ -14,12 +14,12 @@ func (m *Model) Update(msg tea.Msg, cmds *[]tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.MouseMsg:
 		if zone.Get(constants.Zone_ChangesTab_Button_Commit).InBounds(msg) {
-
-			// if status.IsClean() {
-			// 	// bails out if there isn't anything to commit.
-			// 	// this should also be checked on the button. If IsClean it should be disabled.
-			// 	return
-			// }
+			status, _ := m.Git.GetStatus()
+			if status.IsClean() {
+				// bails out if there isn't anything to commit.
+				// this should also be checked on the button. If IsClean it should be disabled.
+				return
+			}
 
 			// _, additionErr := tree.Add(".")
 			// if additionErr != nil {

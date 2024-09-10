@@ -1,7 +1,10 @@
 package git
 
-func New(path string) Model {
+import "github.com/andyroid0/incantation/logger"
+
+func New(path string, logger *logger.Logger) Model {
 	return Model{
-		Path: path,
+		Path:   path,
+		Logger: logger,
 	}
 }

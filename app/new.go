@@ -7,6 +7,7 @@ import (
 	"github.com/andyroid0/incantation/component/changes"
 	"github.com/andyroid0/incantation/component/repos"
 	"github.com/andyroid0/incantation/constants"
+	"github.com/andyroid0/incantation/git"
 	"github.com/andyroid0/incantation/logger"
 	"github.com/charmbracelet/bubbles/viewport"
 
@@ -25,7 +26,7 @@ func New(logger *logger.Logger) Model {
 	}
 
 	vp := viewport.New(0, physicalHeight-constants.ContentPanelHeightOffset)
-
+	gt := git.New(".", logger)
 	model := Model{
 		Logger:              logger,
 		Tabs:                constants.Pages(),
@@ -38,10 +39,12 @@ func New(logger *logger.Logger) Model {
 		},
 		ChangesModel: &changes.Model{
 			Logger: logger,
+			Git:    &gt,
 		},
 		TerminalWidth:  physicalWidth,
 		TerminalHeight: physicalHeight,
 		viewport:       &vp,
+		Git:            &gt,
 	}
 	model.TabContent = []string{
 		model.ChangesModel.MenuView(),
