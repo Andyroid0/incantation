@@ -5,22 +5,22 @@ import (
 	"io/fs"
 	"strings"
 
-	"github.com/andyroid0/incantation/component"
 	"github.com/andyroid0/incantation/constants"
 	"github.com/andyroid0/incantation/logger"
+	"github.com/andyroid0/incantation/shared"
 	"github.com/andyroid0/incantation/utils"
 	"github.com/charmbracelet/lipgloss"
 	zone "github.com/lrstanley/bubblezone"
 )
 
 func MenuView() string {
-	return zone.Mark(constants.Zone_ReposTabAddButton, component.ButtonStyle().Render("Add"))
+	return zone.Mark(constants.Zone_ReposTab_Button_Add, shared.ButtonStyle().Render("Add"))
 }
 
 func AddDialogView(containerWidth int, containerHeight int) string {
-	addExistingButton := component.ActiveButtonStyle().Render("Add Existing Repo")
-	cloneButton := component.ActiveButtonStyle().Render("Clone Repo")
-	createNewButton := component.ActiveButtonStyle().Render("Create New Repo")
+	addExistingButton := shared.ActiveButtonStyle().Render("Add Existing Repo")
+	cloneButton := shared.ActiveButtonStyle().Render("Clone Repo")
+	createNewButton := shared.ActiveButtonStyle().Render("Create New Repo")
 
 	buttons := lipgloss.JoinVertical(
 		lipgloss.Center,
@@ -32,7 +32,7 @@ func AddDialogView(containerWidth int, containerHeight int) string {
 	)
 	dialog := lipgloss.Place(containerWidth, containerHeight,
 		lipgloss.Center, lipgloss.Center,
-		component.DialogBoxStyle().Padding(1, 8).Render(buttons),
+		shared.DialogBoxStyle().Padding(1, 8).Render(buttons),
 		lipgloss.WithWhitespaceChars("𝕩"),
 		lipgloss.WithWhitespaceForeground(constants.Subtle),
 	)

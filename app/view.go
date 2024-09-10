@@ -1,20 +1,28 @@
 package app
 
 import (
-	"github.com/andyroid0/incantation/component"
 	"github.com/andyroid0/incantation/component/repos"
+	"github.com/andyroid0/incantation/shared"
+
 	"github.com/andyroid0/incantation/constants"
+
 	"github.com/charmbracelet/lipgloss"
 	zone "github.com/lrstanley/bubblezone"
 )
 
 func (m Model) View() string {
 	if m.ShowWholePageDialog {
-		return zone.Scan(component.WholePageDialog(m.TerminalWidth, m.TerminalHeight, "Select a file."))
+		return zone.Scan(shared.WholePageDialog(m.TerminalWidth, m.TerminalHeight, "Select a file."))
 	}
 
 	menuWidth, menu :=
-		component.MenuPanel(m.TerminalHeight-constants.MenuPanelHeightOffset, constants.Zone_SideBarTab, m.Tabs, m.TabContent, m.ActiveTab)
+		shared.MenuPanel(
+			m.TerminalHeight-constants.MenuPanelHeightOffset,
+			constants.Zone_SideBarTab,
+			m.Tabs,
+			m.TabContent,
+			m.ActiveTab,
+		)
 	contentWidth := m.TerminalWidth - menuWidth - constants.ContentPanelWidthOffset
 	contentHeight := m.TerminalHeight - constants.ContentPanelHeightOffset
 
@@ -24,35 +32,37 @@ func (m Model) View() string {
 			contents = repos.AddDialogView(contentWidth, contentHeight)
 		} else {
 			m.viewport.Width = contentWidth
-			m.viewport.Height = contentHeight
-			m.viewport.SetContent(repos.ContentView(m.ReposModel.CursorIndex, m.ReposModel.FilePickerList, m.Logger))
-			contents = m.viewport.View()
+			m.viewport.Height = contentHeight - 1 //subtract one line for a top bar to display bread crumbs (path) and a back button
+			m.viewport.SetContent(
+				repos.ContentView(m.ReposModel.CursorIndex, m.ReposModel.FilePickerList, m.Logger),
+			)
+			contents = "⬅ Back top bar test. + Add Repository\n" + m.viewport.View()
 		}
 	} else {
 		m.viewport.Width = contentWidth
 		m.viewport.Height = contentHeight
 		m.viewport.SetContent(
-			component.Dialog(contentWidth, contentHeight, m.ShowDialog))
+			shared.Dialog(contentWidth, contentHeight, m.ShowDialog))
 		contents = m.viewport.View()
 	}
 
 	return zone.Scan(
-		component.
+		shared.
 			DocStyle().
 			MaxWidth(m.TerminalWidth).
 			Render(
 				lipgloss.JoinVertical(
 					lipgloss.Top,
-					component.AppBar(),
-					component.Grid(
+					shared.AppBar(),
+					shared.Grid(
 						menu,
-						component.ContentPanel(
+						shared.ContentPanel(
 							contentWidth,
 							contentHeight,
 							contents,
 						),
 					),
-					component.StatusBar(m.TerminalWidth-12),
+					shared.StatusBar(m.TerminalWidth-12),
 				),
 			),
 	)

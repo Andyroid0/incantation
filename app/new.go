@@ -4,10 +4,12 @@ import (
 	"log"
 	"os"
 
+	"github.com/andyroid0/incantation/component/changes"
 	"github.com/andyroid0/incantation/component/repos"
 	"github.com/andyroid0/incantation/constants"
 	"github.com/andyroid0/incantation/logger"
 	"github.com/charmbracelet/bubbles/viewport"
+
 	"golang.org/x/term"
 )
 
@@ -34,12 +36,15 @@ func New(logger *logger.Logger) Model {
 			CursorIndex:    0,
 			FilePickerPath: homeDir,
 		},
+		ChangesModel: &changes.Model{
+			Logger: logger,
+		},
 		TerminalWidth:  physicalWidth,
 		TerminalHeight: physicalHeight,
 		viewport:       &vp,
 	}
 	model.TabContent = []string{
-		"Changes Tab",
+		model.ChangesModel.MenuView(),
 		"History Tab",
 		repos.MenuView(),
 		"Branches Tab"}

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/andyroid0/incantation/component/repos"
+
 	"github.com/andyroid0/incantation/constants"
 	tea "github.com/charmbracelet/bubbletea"
 	zone "github.com/lrstanley/bubblezone"
@@ -115,7 +116,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.ActiveTab = constants.Branches
 			m.ShowDialog = false
 		}
-		if zone.Get(constants.Zone_ReposTabAddButton).InBounds(msg) {
+		if zone.Get(constants.Zone_ReposTab_Button_Add).InBounds(msg) {
 			m.ShowDialog = true
 		}
 		if zone.Get(constants.Zone_AddExistingRepoButton).InBounds(msg) {
@@ -146,6 +147,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		}
 	}
+	m.ChangesModel.Update(msg, &cmds)
 
 	*m.viewport, cmd = m.viewport.Update(msg)
 	cmds = append(cmds, cmd)
