@@ -14,11 +14,15 @@ import (
 )
 
 func (m *Model) MenuView() string {
-	// if disabled {
-	// 	return zone.Mark(constants.Zone_ChangesTab_Button_Commit, component.ActiveButtonStyle().Render("Commit"))
-
-	// }
-	return zone.Mark(constants.Zone_ChangesTab_Button_Commit, shared.ButtonStyle().Render("Commit"))
+	label := "Commit"
+	var btn string
+	status, _ := m.Git.Tree.Status()
+	if status.IsClean() {
+		btn = shared.DisabledButtonStyle().Render(label)
+	} else {
+		btn = shared.ButtonStyle().Render(label)
+	}
+	return zone.Mark(constants.Zone_ChangesTab_Button_Commit, btn)
 }
 
 func ContentView(logger *logger.Logger) string {
